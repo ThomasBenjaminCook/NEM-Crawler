@@ -43,3 +43,5 @@ if('database.csv' in get_names("None")):
 else:
     new_data.to_csv("database.csv")
     delete_files_in_folder("processed_csv_files")
+
+print("You're up to date.")
