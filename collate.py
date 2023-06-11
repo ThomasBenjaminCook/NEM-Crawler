@@ -47,3 +47,5 @@ def collate():
             data_frame = pd.DataFrame()
             datetimes = []
             stations = []
+
+    delete_files_in_folder("raw_csv_files")

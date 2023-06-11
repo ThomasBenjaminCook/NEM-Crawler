@@ -5,6 +5,7 @@ from collate import collate
 from merge import merge
 from align import align
 from csv_names import get_names
+from deleter import delete_files_in_folder
 
 print("Gathering current data.")
 
@@ -38,5 +39,7 @@ print("Merging the data with current database.")
 
 if('database.csv' in get_names("None")):
     align(main_database, new_data).to_csv("database.csv")
+    delete_files_in_folder("processed_csv_files")
 else:
     new_data.to_csv("database.csv")
+    delete_files_in_folder("processed_csv_files")

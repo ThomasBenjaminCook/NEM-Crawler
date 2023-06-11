@@ -23,3 +23,5 @@ def extract_all(extract_from, extract_to):
 
         with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
             zip_ref.extractall(destination_folder)
+    
+    delete_files_in_folder(extract_from)
