@@ -1,13 +1,9 @@
-def activate_crawler(target_directory, date_boundary):
+def activate_crawler(target_directory, date_boundary,url):
     import os
     import requests
     from bs4 import BeautifulSoup
     from urllib.parse import urljoin
     from deleter import delete_files_in_folder
-
-
-    # URL of the page containing the zip file links
-    url = 'http://www.nemweb.com.au/Reports/ARCHIVE/Dispatch_SCADA/'
 
     # Directory to save the downloaded files
     download_directory = os.path.join(os.getcwd(), target_directory) #Puts shit in current directory
