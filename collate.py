@@ -49,3 +49,40 @@ def collate():
             stations = []
 
     delete_files_in_folder("raw_csv_files")
+
+def collate_PV():
+    import pandas as pd
+    import numpy as np
+    from csv_names import get_names
+    from deleter import delete_files_in_folder
+    import warnings
+    warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning)
+
+    delete_files_in_folder("rooftop_PV_processed_csv_files")
+
+    file_names_with_sat = get_names("rooftop_PV_raw_csv_data")
+
+    file_names = []
+
+    for name in file_names_with_sat:
+        if(name.split("_")[4] == "MEASUREMENT"):
+            file_names.append(name)
+
+    datetimes = []
+    output = []
+
+    for file_name in file_names:
+
+        data = pd.read_csv("rooftop_PV_raw_csv_data/" + file_name)
+        
+        datetimes.append(data["PUBLIC"].loc[1])
+
+        values = (data[data.columns[6]].to_numpy())
+        values = (values[1:len(values)-1])
+
+        output.append(values.astype(float).sum())
+
+    dataframe = pd.DataFrame({"Time": datetimes, "Output": output})
+    (dataframe.drop_duplicates(subset=["Time"])).to_csv("PLease.csv")
+
+    #18669
