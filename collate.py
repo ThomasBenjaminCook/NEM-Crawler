@@ -57,9 +57,7 @@ def collate_PV():
     from deleter import delete_files_in_folder
     import warnings
     warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning)
-
-    delete_files_in_folder("rooftop_PV_processed_csv_files")
-
+    
     file_names_with_sat = get_names("rooftop_PV_raw_csv_data")
 
     file_names = []
@@ -83,6 +81,4 @@ def collate_PV():
         output.append(values.astype(float).sum())
 
     dataframe = pd.DataFrame({"Time": datetimes, "Output": output})
-    (dataframe.drop_duplicates(subset=["Time"])).to_csv("PLease.csv")
-
-    #18669
+    return(dataframe.drop_duplicates(subset=["Time"]))

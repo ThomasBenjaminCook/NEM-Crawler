@@ -27,7 +27,7 @@ def activate_crawler(target_directory, date_boundary,url):
         if file_url.endswith('.zip'):
             numberdate_currentdata = int(((file_url.split("/")[-1]).split("_")[-1]).split(".")[0])
             numberdate_mydata = int((date_boundary.split("/"))[0]+(date_boundary.split("/"))[1]+(date_boundary.split("/"))[2])
-            if(numberdate_currentdata>=(numberdate_mydata-1)):
+            if(numberdate_currentdata>=(numberdate_mydata-9)):
                 # Send a GET request to download the file
                 file_response = requests.get(file_url)
 

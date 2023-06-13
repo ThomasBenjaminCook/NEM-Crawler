@@ -6,14 +6,15 @@ from merge import merge
 from align import align
 from csv_names import get_names
 from deleter import delete_files_in_folder
+from pvmerge import addPV
 
 print("Gathering current data.")
 
 if('database.csv' in get_names("None")):
     main_database = pd.read_csv("database.csv",index_col = [0])
-    most_recent_date = (main_database.tail(1).iloc[:,1].to_list()[0]).split(" ")[0] #Finds out how recent my data is.
+    most_recent_date = (main_database.tail(1)["Unnamed: 0"].to_list()[0]).split(" ")[0] #Finds out how recent my data is.
 else:
-    most_recent_date = "00/00/0000"
+    most_recent_date = "0000/00/0000"
 
 print("Crawling NEM for new data.")
 
@@ -34,6 +35,10 @@ collate() #Collates the 5 min zip files into small (approx daily) csv files.
 new_data_file_name = merge("processed_csv_files") #Merges the daily zip files.
 
 new_data = pd.read_csv(new_data_file_name)
+
+print("Searching for rooftop solar data.")
+
+newdata = addPV(new_data)
 
 print("Merging the data with current database.")
 
