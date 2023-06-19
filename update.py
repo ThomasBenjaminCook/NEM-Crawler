@@ -7,11 +7,13 @@ from align import align
 from csv_names import get_names
 from deleter import delete_files_in_folder
 from pvmerge import addPV
+from compress import csv_to_zip
 
 print("Gathering current data.")
 
-if('database.csv' in get_names("None")):
-    main_database = pd.read_csv("database.csv")
+if('database_zip.zip' in get_names("zip_output")):
+    extract_all("zip_output","csv_output")
+    main_database = pd.read_csv("csv_output/database.csv")
     most_recent_date = (main_database.tail(1)["Datetime"].to_list()[0]).split(" ")[0] #Finds out how recent my data is.
 else:
     most_recent_date = "0000/00/0000"
@@ -42,11 +44,15 @@ newdata = addPV(new_data)
 
 print("Merging the data with current database.")
 
-if('database.csv' in get_names("None")):
-    align(main_database, new_data).to_csv("database.csv", index=False)
+if('database.csv' in get_names("csv_output")):
+    align(main_database, new_data).to_csv("csv_output/database.csv", index=False)
     delete_files_in_folder("processed_csv_files")
+    csv_to_zip("database.csv","database_zip.zip")
+    delete_files_in_folder("csv_output")
 else:
-    new_data.to_csv("database.csv", index=False)
+    new_data.to_csv("csv_output/database.csv", index=False)
     delete_files_in_folder("processed_csv_files")
+    csv_to_zip("database.csv","database_zip.zip")
+    delete_files_in_folder("csv_output")
 
 print("You're up to date.")
