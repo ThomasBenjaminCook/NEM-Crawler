@@ -1,7 +1,7 @@
 def crawl_PV(time):
     from crawl import activate_crawler
     from deleter import delete_files_in_folder
-    from extract import extract_all
+    from zip_actions import extract_all
     from collate import collate_PV
 
     delete_files_in_folder('rooftop_PV_raw_zip_data')

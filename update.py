@@ -1,11 +1,10 @@
 import pandas as pd
 from crawl import activate_crawler
-from extract import extract_all
 from collate import reduce, merge, align
 from csv_names import get_names
 from deleter import delete_files_in_folder
 from pvmerge import addPV
-from compress import csv_to_zip
+from zip_actions import compress, extract_all
 
 print("Gathering current data.")
 
@@ -45,12 +44,12 @@ print("Merging the data with current database.")
 if('database.csv' in get_names("csv_output")):
     align(main_database, new_data).to_csv("csv_output/database.csv", index=False)
     delete_files_in_folder("processed_csv_files")
-    csv_to_zip("database.csv","database_zip.zip")
+    compress("database.csv","database_zip.zip")
     delete_files_in_folder("csv_output")
 else:
     new_data.to_csv("csv_output/database.csv", index=False)
     delete_files_in_folder("processed_csv_files")
-    csv_to_zip("database.csv","database_zip.zip")
+    compress("database.csv","database_zip.zip")
     delete_files_in_folder("csv_output")
 
 print("You're up to date.")
