@@ -1,9 +1,7 @@
 import pandas as pd
 from crawl import activate_crawler
 from extract import extract_all
-from collate import collate
-from merge import merge
-from align import align
+from collate import reduce, merge, align
 from csv_names import get_names
 from deleter import delete_files_in_folder
 from pvmerge import addPV
@@ -32,7 +30,7 @@ extract_all('next_layer_zip_files', 'raw_csv_files') #Extracts the csv files fro
 
 print("Collating the data.")
 
-collate() #Collates the 5 min zip files into small (approx daily) csv files.
+reduce() #Collates the 5 min zip files into small (approx daily) csv files.
 
 new_data_file_name = merge("processed_csv_files") #Merges the daily zip files.
 
