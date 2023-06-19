@@ -11,7 +11,7 @@ from pvmerge import addPV
 print("Gathering current data.")
 
 if('database.csv' in get_names("None")):
-    main_database = pd.read_csv("database.csv",index_col = [0])
+    main_database = pd.read_csv("database.csv")
     most_recent_date = (main_database.tail(1)["Datetime"].to_list()[0]).split(" ")[0] #Finds out how recent my data is.
 else:
     most_recent_date = "0000/00/0000"
@@ -34,7 +34,7 @@ collate() #Collates the 5 min zip files into small (approx daily) csv files.
 
 new_data_file_name = merge("processed_csv_files") #Merges the daily zip files.
 
-new_data = pd.read_csv(new_data_file_name)
+new_data = pd.read_csv(new_data_file_name).rename({"Unnamed: 0":"Datetime"}, axis=1)
 
 print("Searching for rooftop solar data.")
 
@@ -46,7 +46,7 @@ if('database.csv' in get_names("None")):
     align(main_database, new_data).to_csv("database.csv", index=False)
     delete_files_in_folder("processed_csv_files")
 else:
-    new_data.to_csv("database.csv",index=False)
+    new_data.to_csv("database.csv", index=False)
     delete_files_in_folder("processed_csv_files")
 
 print("You're up to date.")
