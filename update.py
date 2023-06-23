@@ -5,6 +5,7 @@ from csv_names import get_names
 from deleter import delete_files_in_folder
 from pvmerge import addPV
 from zip_actions import compress, extract_all
+from pathlib import Path
 
 if('database_zip.zip' in get_names("zip_output")):
     extract_all("zip_output","csv_output")
