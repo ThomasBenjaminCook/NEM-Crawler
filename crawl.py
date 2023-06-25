@@ -45,7 +45,7 @@ def activate_crawler(target_directory, date_boundary, url):
         # Check if the link points to a zip file
         if file_url.endswith('.zip'):
             numberdate_selected_zip = number_to_date(((file_url.split("/")[-1]).split("_")[-1]).split(".")[0])
-            if(compare_dates(numberdate_selected_zip,date_boundary)):
+            if(compare_dates(numberdate_selected_zip,date_boundary,10)):
                 # Send a GET request to download the file
                 file_response = requests.get(file_url)
 

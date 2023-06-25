@@ -9,7 +9,7 @@ from pathlib import Path
 
 if('database_zip.zip' in get_names("zip_output")):
     extract_all("zip_output","csv_output")
-    main_database = pd.read_csv("csv_output/database.csv")
+    main_database = pd.read_csv("csv_output/database_zip/database.csv")
     most_recent_date = (main_database.tail(1)["Datetime"].to_list()[0]).split(" ")[0] #Finds out how recent my data is.
 else:
     most_recent_date = "0000/00/0000"
@@ -29,12 +29,12 @@ new_data = pd.read_csv(new_data_file_name).rename({"Unnamed: 0":"Datetime"}, axi
 newdata = addPV(new_data)
 
 if('database.csv' in get_names("csv_output")):
-    align(main_database, new_data).to_csv("csv_output/database.csv", index=False)
+    align(main_database, new_data).to_csv("csv_output/database_zip/database.csv", index=False)
     delete_files_in_folder("processed_csv_files")
-    compress("database.csv","database_zip.zip")
-    delete_files_in_folder("csv_output")
+    compress("database_zip\\database.csv","database_zip.zip")
+    delete_files_in_folder("csv_output\\database_zip")
 else:
     new_data.to_csv("csv_output/database.csv", index=False)
     delete_files_in_folder("processed_csv_files")
     compress("database.csv","database_zip.zip")
-    delete_files_in_folder("csv_output")
+    delete_files_in_folder("csv_output\\database_zip")
