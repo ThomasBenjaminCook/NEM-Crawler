@@ -12,7 +12,7 @@ if('database_zip.zip' in get_names("zip_output")):
     main_database = pd.read_csv("csv_output/database_zip/database.csv")
     most_recent_date = (main_database.tail(1)["Datetime"].to_list()[0]).split(" ")[0] #Finds out how recent my data is.
 else:
-    most_recent_date = "0000/00/0000"
+    most_recent_date = "2000/01/01"
 
 activate_crawler("raw_zip_files", most_recent_date,'http://www.nemweb.com.au/Reports/ARCHIVE/Dispatch_SCADA/') #Crawls for all the data beyond the most recent date.
 
@@ -28,7 +28,7 @@ new_data = pd.read_csv(new_data_file_name).rename({"Unnamed: 0":"Datetime"}, axi
 
 newdata = addPV(new_data)
 
-if('database.csv' in get_names("csv_output")):
+if('database.csv' in get_names("csv_output")): #Never goes in. 
     align(main_database, new_data).to_csv("csv_output/database_zip/database.csv", index=False)
     delete_files_in_folder("processed_csv_files")
     compress("database_zip\\database.csv","database_zip.zip")

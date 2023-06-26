@@ -16,7 +16,7 @@ def align(database1, database2):
     if(target_index == 'Null'):
         return(database1)
     else:
-        return(pd.concat([database1,database2.iloc[target_index:endpoint,:]]).fillna(0).reset_index(drop=True))
+        return(pd.concat([database1,database2.iloc[target_index+1:endpoint,:]]).fillna(0).reset_index(drop=True))
 
 def merge(target_folder):
     import pandas as pd
@@ -35,7 +35,7 @@ def merge(target_folder):
 
     delete_files_in_folder(target_folder)
 
-    final_result.to_csv(new_file_name)
+    final_result.to_csv(new_file_name, index = False)
     return(new_file_name)
 
 def reduce():
